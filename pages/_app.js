@@ -1,7 +1,9 @@
-import '../styles/globals.css'
+import '../styles/modern.css'
+import React from "react";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  const Layout = Component.layout || (children => <>{children}</>);
+  return <Layout><Component {...pageProps} /></Layout>
 }
 
 export default MyApp
