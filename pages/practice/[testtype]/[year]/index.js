@@ -18,9 +18,7 @@ import {
 } from "reactstrap";
 
 const PracticeTest = (props) => {
-  const router = useRouter();
-  const { testtype } = router.query;
-  const { year } = router.query;
+  const router = useRouter();  
   return (
     <Container fluid>
       <Row>

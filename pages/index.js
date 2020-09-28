@@ -4,7 +4,7 @@ import  LoginButton  from "../components/app/LoginButton";
 import LogoutButton from "../components/app/LogoutButton";
 import HomeLayout from "../components/layout/HomeLayout";
 import AppLogo from "../components/theme/AppLogo";
-
+import { useRouter } from "next/router";
 
 import {
   Button,
@@ -14,7 +14,7 @@ import {
   Navbar,
   NavbarBrand
 } from "reactstrap";
-import Tests from "../components/app/Tests";
+import TestTypes from "../components/app/TestTypes";
 
 
 
@@ -143,26 +143,17 @@ const Footer = () => (
   </section>
 );
 
-class Landing extends React.Component {
-  componentWillMount() {
-    const { dispatch } = this.props;
-    //dispatch(enableLightTheme());
-  }
-
-  render() {
+const Landing = () => {
     return (
       <React.Fragment>
         <Header />
         <Intro />
-        <Navigation />
-        {/* <Styles /> */}
-        <Tests/>
+        <Navigation />        
+        <TestTypes/>
         <Footer />
       </React.Fragment>
-    );
-  }
-}
-
+    );  
+};
 Landing.layout = HomeLayout;
 
 export default Landing;
