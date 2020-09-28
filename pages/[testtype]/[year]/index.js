@@ -1,11 +1,11 @@
 import React from "react";
 import { useRouter } from "next/router";
-import Dashboard from "../../../../components/layout/Dashboard";
+import Dashboard from "../../../components/layout/Dashboard";
 import {
   GET_TESTS_BY_TYPE_AND_YEAR
-} from "../../../../lib/apiproxy/queries";
-import axiosClient from "../../../../lib/apiproxy/axiosClient";
-import Tests from "../../../../components/app/Tests";
+} from "../../../lib/apiproxy/queries";
+import axiosClient from "../../../lib/apiproxy/axiosClient";
+import Tests from "../../../components/app/Tests";
 
 import {
   Container,

@@ -18,7 +18,7 @@ const TestTypes = (props) => {
         <Row>
           
           <Col md={6} lg={4}>
-            <Card tag="blockquote" className="border"  onClick={() => router.push("/practice/naplan/3")}>
+            <Card tag="blockquote" className="border"  onClick={() => router.push("/naplan/3")}>
               <CardBody className="p-4">
                 <div className="d-flex align-items-center mb-3">
                   <div>
@@ -39,7 +39,7 @@ const TestTypes = (props) => {
           </Col>
 
           <Col md={6} lg={4}>
-            <Card tag="blockquote" className="border"  onClick={() => router.push("/practice/icas/3")}>
+            <Card tag="blockquote" className="border"  onClick={() => router.push("/icas/3")}>
               <CardBody className="p-4">
                 <div className="d-flex align-items-center mb-3">
                   <div>
@@ -59,7 +59,7 @@ const TestTypes = (props) => {
             </Card>
           </Col>
           <Col md={6} lg={4}>
-            <Card tag="blockquote" className="border" onClick={() => router.push("/practice/naplan/5")}>
+            <Card tag="blockquote" className="border" onClick={() => router.push("/naplan/5")}>
               <CardBody className="p-4">
                 <div className="d-flex align-items-center mb-3">
                   <div>
