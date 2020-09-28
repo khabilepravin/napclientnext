@@ -3,14 +3,15 @@ import { Container, Row, Col } from "reactstrap";
 //import { Link } from "react-router-dom";
 import Link from "next/link";
 
-const Footer = () => (
-  <footer className="footer">
+const Footer = () => {
+  
+  return  <footer className="footer">
     <Container fluid>
       <Row className="text-muted">
         <Col xs={8} className="text-left">
           <ul className="list-inline">
             <li className="list-inline-item">
-              <Link href="dashboard">
+              <Link href="/support">
                 <a className="text-muted mr-1">
                 Support
                 </a>
@@ -24,9 +25,9 @@ const Footer = () => (
               </Link>
             </li>
             <li className="list-inline-item">
-              <Link href="dashboard">
+              <Link href="/about">
               <a className="text-muted mr-1">
-                Terms of Service
+                About
                 </a>
               </Link>
             </li>
@@ -52,6 +53,6 @@ const Footer = () => (
       </Row>
     </Container>
   </footer>
-);
+};
 
 export default Footer;

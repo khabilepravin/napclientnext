@@ -129,8 +129,8 @@ const Styles = () => {
 
 
 
-const Footer = () => (
-  <section className="py-5">
+const Footer = () => {  
+  return  <section className="py-5">
     <Container className="text-center">
       <Row>
         <Col lg={6} className="mx-auto">
@@ -141,7 +141,7 @@ const Footer = () => (
       </Row>
     </Container>
   </section>
-);
+};
 
 const Landing = () => {
     return (

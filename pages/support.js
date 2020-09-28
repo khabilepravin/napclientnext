@@ -1,7 +1,7 @@
 import Dashboard from "../components/layout/Dashboard";
 import { Container, Col, Card, Row, CardBody, CardHeader, CardTitle } from "reactstrap";
 
-const About = () => {
+const Support = () => {
   return (
     <Container fluid>
       <Row>
@@ -9,7 +9,7 @@ const About = () => {
           <Card>
             <CardHeader>
               <CardTitle tag="h5" className="mb-0">
-                About
+                Support
               </CardTitle>
             </CardHeader>
             <CardBody></CardBody>
@@ -20,6 +20,6 @@ const About = () => {
   );
 };
 
-About.layout = Dashboard;
+Support.layout = Dashboard;
 
-export default About;
+export default Support;
