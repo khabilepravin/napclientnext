@@ -1,16 +1,35 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt, faPlay } from "@fortawesome/free-solid-svg-icons";
+import axiosClient from "../../lib/apiproxy/axiosClient";
+import { CREATE_TEST } from "../../lib/apiproxy/mutations";
+import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from "next/router";
 
-import { Container, Col, Card, Row, CardBody, CardHeader } from "reactstrap";
+import {
+  Container,
+  Col,
+  Card,
+  Row,
+  CardBody,
+  CardHeader,
+  Button,
+} from "reactstrap";
 
 
 const Tests = (props) => {
+   const router = useRouter();
+   const handleStartPractice = async (testId) => {
+    const userId = uuidv4();
+    const response = await axiosClient.PostQuery(CREATE_TEST, { userTest: { testId: testId, userId: userId, mode: 'practice' } });
+    router.push(`/practice/${response.data.data.addUserTest.id}`);
+  };
+
   let availableTests = null;
   if (props.testList) {
     availableTests = props.testList.testsByTypeAndYear.map((test) => {
       return (
-        <Col md={6} lg={4}>
+        <Col md={6} lg={4} key={test.id}>
           <Card tag="blockquote" className="border">
             <CardBody className="p-4">
               <div className="d-flex align-items-center mb-3">
@@ -26,7 +45,12 @@ const Tests = (props) => {
               </div>
               <p className="lead mb-2">{test.description}</p>
 
-              <div className="landing-stars"></div>
+              <Button
+                color="secondary"
+                className="mr-1 mb-1"
+                onClick={() => handleStartPractice(test.id)}>
+                <FontAwesomeIcon icon={faPlay} /> Start
+              </Button>
             </CardBody>
           </Card>
         </Col>
@@ -37,7 +61,7 @@ const Tests = (props) => {
     <section className="py-6 bg-white">
       <Container>
         <div className="mb-4 text-center">
-          <h2>Available Tests</h2>          
+          <h2>Available Tests</h2>
         </div>
 
         <Row>{availableTests}</Row>
