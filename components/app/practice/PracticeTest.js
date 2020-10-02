@@ -44,9 +44,9 @@ const PracticeTest = (props) => {
   const [questionAudio, setQuestionAudio] = useState();
   const [textToSpeechMode, setTextToSpeechMode] = useState(false);
   
-  const { loading, error, data } = useQuery(GET_USER_TEST_INSTANCE, {
-    variables: { id: props.userTestId },
-  });
+  //const { loading, error, data } = useQuery(GET_USER_TEST_INSTANCE, {
+   // variables: { id: props.userTestId },
+  //});
 
   const [getUserTestRecord] = useLazyQuery(GET_USERTEST_RECORD, {
     fetchPolicy: "network-only",
@@ -61,12 +61,12 @@ const PracticeTest = (props) => {
 
   const [addUserTestRecord] = useMutation(ADD_USER_TEST_RECORD, {
     onCompleted({ addUserTestRecord }) {
-      getTestProgressInPercentage(props.userTestId);
+      getTestProgressInPercentage(props.userTestInstance.id);
     },
   });
 
   const incrementQuestionIndex = () => {
-    if (currentQuestionIndex === data.userTestById.questions.length - 1) {
+    if (currentQuestionIndex === props.userTestInstance.questions.length - 1) {
       //TODO: Refactoring needed  
       //history.push(`/practicepages/testresult/${props.userTestId}`);
     } else {
@@ -80,31 +80,33 @@ const PracticeTest = (props) => {
   };
 
   useEffect(() => {
-    if (data) {
+    if (props.userTestInstance) {
       getUserTestRecord({
         variables: {
-          userTestId: props.userTestId,
-          questionId: data.userTestById.questions[currentQuestionIndex].id,
+          userTestId: props.userTestInstance.id,
+          questionId: props.userTestInstance.questions[currentQuestionIndex].id,
         },
       });
-      loadQuestionImage(data.userTestById.questions[currentQuestionIndex]);
-      loadQuestionAudio(data.userTestById.questions[currentQuestionIndex]);
+      loadQuestionImage(props.userTestInstance.questions[currentQuestionIndex]);
+      loadQuestionAudio(props.userTestInstance.questions[currentQuestionIndex]);
     }
   }, [currentQuestionIndex]);
 
   // This is triggered only once at initial load
   useEffect(() => {
-    if (data) {
+    console.log(props);
+    if (props.userTestInstance) {
+      console.log(props.userTestInstance);
       getUserTestRecord({
         variables: {
-          userTestId: props.userTestId,
-          questionId: data.userTestById.questions[currentQuestionIndex].id,
+          userTestId: props.userTestInstance.id,
+          questionId: props.userTestInstance.questions[currentQuestionIndex].id,
         },
       });
-      getTestProgressInPercentage(props.userTestId).then((progress) => {
+      getTestProgressInPercentage(props.userTestInstance.id).then((progress) => {
         if(progress.nextQuestionIndex == 0) {
-          loadQuestionImage(data.userTestById.questions[0]);
-          loadQuestionAudio(data.userTestById.questions[0]);      
+          loadQuestionImage(props.userTestInstance.questions[0]);
+          loadQuestionAudio(props.userTestInstance.questions[0]);      
         }
         else {
           setcurrentQuestionIndex(progress.nextQuestionIndex);
@@ -112,7 +114,7 @@ const PracticeTest = (props) => {
 
       });
     }
-  }, [data]);
+  }, []);
 
   const getTestProgressInPercentage = async (userTestIdInput) => {
     let response = await UserTestService.getTestProgressPercentage(userTestIdInput);
@@ -158,8 +160,8 @@ const PracticeTest = (props) => {
       addUserTestRecord({
         variables: {
           userTestRecord: {
-            userTestId: props.userTestId,
-            questionId: data.userTestById.questions[currentQuestionIndex].id,
+            userTestId: props.userTestInstance.id,
+            questionId: props.userTestInstance.questions[currentQuestionIndex].id,
             answerId: answer.answerId,
             isCorrect: answer.isCorrect,
           },
@@ -168,11 +170,11 @@ const PracticeTest = (props) => {
       setCanProcced(true);
     } else if (answer.answerText) {
       PracticeTestService.postUserTestTextRecord({
-        userTestId: props.userTestId,
-        questionId: data.userTestById.questions[currentQuestionIndex].id,
+        userTestId: props.userTestInstance.id,
+        questionId: props.userTestInstance.questions[currentQuestionIndex].id,
         userAnswerText: answer.answerText,
       }).then((result) => {
-        getTestProgressInPercentage(props.userTestId);
+        getTestProgressInPercentage(props.userTestInstance.id);
       });
       setCanProcced(true);
     } else {
@@ -184,23 +186,23 @@ const PracticeTest = (props) => {
     setTextToSpeechMode(textToSpeechMode ? false : true);
   };
 
-  if (loading) {
-    return (
-      <div>
-        <p>Loading</p>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div>
+  //       <p>Loading</p>
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <div>
-        <p>Error loading test: {error}</p>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div>
+  //       <p>Error loading test: {error}</p>
+  //     </div>
+  //   );
+  // }
 
-  if (data) {
+  //if (data) {
     return (
       <Container fluid>
         <Header>
@@ -215,26 +217,26 @@ const PracticeTest = (props) => {
         <Card>
           <CardHeader>
             <CardTitle tag="h5">
-              {data.userTestById.test.text}{" "}
-              <Timer minutes={data.userTestById.test.durationMinutes} />
+              {props.userTestInstance.test.text}{" "}
+              <Timer minutes={props.userTestInstance.test.durationMinutes} />
               <RoboSwitch handleSpeechToTextToggle={handleSpeechToTextToggle} textToSpeechMode={textToSpeechMode}/>              
             </CardTitle>
           </CardHeader>
           <CardBody>
             <TestProgress progressData={progressData} />
             <Question
-              question={data.userTestById.questions[currentQuestionIndex]}
+              question={props.userTestInstance.questions[currentQuestionIndex]}
               selectedAnswer={userAnswer}
               selectedAnswerText={userAnswerText}
               onAnswered={handleOnAnswered}
               questionImage={questionImage}
               questionAudio={questionAudio}
-              shuffleSeed={data.userTestById.shuffleSeed}
+              shuffleSeed={props.userTestInstance.shuffleSeed}
               textToSpeechMode={textToSpeechMode}
             />
             <TestActionButtons
               currentQuestionIndex={currentQuestionIndex}
-              totalQuestions={data.userTestById.questions.length}
+              totalQuestions={props.userTestInstance.questions.length}
               onNextClick={incrementQuestionIndex}
               onPreviousClick={decrementQuestionIndex}
               canProcced={canProcced}
@@ -243,7 +245,7 @@ const PracticeTest = (props) => {
         </Card>
       </Container>
     );
-  }
+  //}
 };
 
 export default PracticeTest;
