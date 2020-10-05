@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/react-hooks";
-import {
-  GET_USER_TEST_INSTANCE,
-  GET_USERTEST_RECORD,
-} from "../../../lib/apiproxy/queries";
+import { GET_USERTEST_RECORD } from "../../../lib/apiproxy/queries";
 import { ADD_USER_TEST_RECORD } from "../../../lib/apiproxy/mutations";
 //import { Link } from "react-router-dom";
 import Question from "./Question"
@@ -13,6 +10,7 @@ import Timer from "./Timer";
 import TestActionButtons from "./TestActionButtons";
 import PracticeTestService from "../../../lib/apiproxy/practiceTestService";
 import UserTestService from "../../../lib/apiproxy/userTestService";
+import { useRouter } from "next/router";
 
 import {
   Breadcrumb,
@@ -21,8 +19,7 @@ import {
   CardBody,
   CardHeader,
   CardTitle,
-  Container,
-  CustomInput,
+  Container
 } from "reactstrap";
 
 import Header from "../../theme/Header";
@@ -30,8 +27,9 @@ import HeaderTitle from "../../theme/HeaderTitle";
 import QuestionService from "../../../lib/apiproxy/questionService";
 
 const PracticeTest = (props) => {
-  //const { userTestId } = match.params;
   const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
+  const router = useRouter();
+
   const [progressData, setProgressData] = useState({
     percentage: 0,
     description: "",
@@ -43,10 +41,6 @@ const PracticeTest = (props) => {
   const [questionImage, setQuestionImage] = useState();
   const [questionAudio, setQuestionAudio] = useState();
   const [textToSpeechMode, setTextToSpeechMode] = useState(false);
-  
-  //const { loading, error, data } = useQuery(GET_USER_TEST_INSTANCE, {
-   // variables: { id: props.userTestId },
-  //});
 
   const [getUserTestRecord] = useLazyQuery(GET_USERTEST_RECORD, {
     fetchPolicy: "network-only",
@@ -69,6 +63,7 @@ const PracticeTest = (props) => {
     if (currentQuestionIndex === props.userTestInstance.questions.length - 1) {
       //TODO: Refactoring needed  
       //history.push(`/practicepages/testresult/${props.userTestId}`);
+      router.push(`/testresult/${props.userTestInstance.id}`);
     } else {
       setcurrentQuestionIndex(currentQuestionIndex + 1);
       setCanProcced(false);
