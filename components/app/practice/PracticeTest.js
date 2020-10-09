@@ -53,6 +53,12 @@ const PracticeTest = (props) => {
     },
   });
 
+  document.addEventListener('keypress', function (e) {
+    if(e.key === 'Enter'){
+      incrementQuestionIndex();
+    }
+  });   
+
   const [addUserTestRecord] = useMutation(ADD_USER_TEST_RECORD, {
     onCompleted({ addUserTestRecord }) {
       getTestProgressInPercentage(props.userTestInstance.id);
@@ -61,8 +67,6 @@ const PracticeTest = (props) => {
 
   const incrementQuestionIndex = () => {
     if (currentQuestionIndex === props.userTestInstance.questions.length - 1) {
-      //TODO: Refactoring needed  
-      //history.push(`/practicepages/testresult/${props.userTestId}`);
       router.push(`/testresult/${props.userTestInstance.id}`);
     } else {
       setcurrentQuestionIndex(currentQuestionIndex + 1);
@@ -88,8 +92,7 @@ const PracticeTest = (props) => {
   }, [currentQuestionIndex]);
 
   // This is triggered only once at initial load
-  useEffect(() => {
-    console.log(props);
+  useEffect(() => {    
     if (props.userTestInstance) {
       console.log(props.userTestInstance);
       getUserTestRecord({
