@@ -1,10 +1,12 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import Link from 'next/link';
 import  LoginButton  from "../components/app/LoginButton";
 import LogoutButton from "../components/app/LogoutButton";
 import HomeLayout from "../components/layout/HomeLayout";
 import AppLogo from "../components/theme/AppLogo";
 import { useRouter } from "next/router";
+import fetch from 'isomorphic-unfetch';
+import auth0 from "../utils/auth0";
 
 import {
   Button,
@@ -143,7 +145,11 @@ const Footer = () => {
   </section>
 };
 
-const Landing = () => {
+const Landing = (props) => {
+    useEffect(() => {
+      console.log(props);      
+    }, []);
+
     return (
       <React.Fragment>
         <Header />
@@ -155,5 +161,23 @@ const Landing = () => {
     );  
 };
 Landing.layout = HomeLayout;
+
+export async function getServerSideProps(context) {
+  //if (typeof window === 'undefined') {
+    const session = await auth0.getSession(context.req);
+    // if (!session || !session.user) {
+    
+    // }
+    return { props: session ? session.user : {} };
+  //}
+  // let userState = null;
+  // const res = await fetch('/api/me');
+  // userState = res.ok ? await res.json() : null;
+  //return userState;
+
+  // return {
+  //   props: userState,
+  // };
+}
 
 export default Landing;
