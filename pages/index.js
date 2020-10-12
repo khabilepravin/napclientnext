@@ -20,15 +20,16 @@ import TestTypes from "../components/app/TestTypes";
 
 
 
-const Header = () => (
+const Header = (props) => (
   <Navbar dark expand="xs" className="absolute-top w-100 py-2">
     <Container>
       <NavbarBrand className="font-weight-bold" href="/">
       <AppLogo/>Prac Test
       </NavbarBrand>   
      
-      <LoginButton/>
-      <LogoutButton/>
+      
+      <LoginButton loggedInUser={props.user}/>
+      <LogoutButton loggedInUser={props.user}/>
     </Container>  
   </Navbar>
 );
@@ -145,14 +146,11 @@ const Footer = () => {
   </section>
 };
 
-const Landing = (props) => {
-    useEffect(() => {
-      console.log(props);      
-    }, []);
+const Landing = (props) => {   
 
     return (
       <React.Fragment>
-        <Header />
+        <Header user={Object.keys(props).length > 0 ? props.user : null} />
         <Intro />
         <Navigation />        
         <TestTypes/>
@@ -163,21 +161,10 @@ const Landing = (props) => {
 Landing.layout = HomeLayout;
 
 export async function getServerSideProps(context) {
-  //if (typeof window === 'undefined') {
     const session = await auth0.getSession(context.req);
-    // if (!session || !session.user) {
-    
-    // }
-    return { props: session ? session.user : {} };
-  //}
-  // let userState = null;
-  // const res = await fetch('/api/me');
-  // userState = res.ok ? await res.json() : null;
-  //return userState;
-
-  // return {
-  //   props: userState,
-  // };
+    console.log(session);
+    return { props: session ? session : {} };
+ 
 }
 
 export default Landing;
