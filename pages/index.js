@@ -7,6 +7,7 @@ import AppLogo from "../components/theme/AppLogo";
 import { useRouter } from "next/router";
 import fetch from 'isomorphic-unfetch';
 import auth0 from "../utils/auth0";
+import { useQuery, useMutation, useLazyQuery } from "@apollo/react-hooks";
 
 import {
   Button,
@@ -17,6 +18,9 @@ import {
   NavbarBrand
 } from "reactstrap";
 import TestTypes from "../components/app/TestTypes";
+import axiosClient from "../lib/apiproxy/axiosClient";
+import { GET_USER_BY_SOCIAL_ID } from "../lib/apiproxy/queries";
+import { ADD_USER } from "../lib/apiproxy/mutations";
 
 
 
@@ -26,8 +30,6 @@ const Header = (props) => (
       <NavbarBrand className="font-weight-bold" href="/">
       <AppLogo/>Prac Test
       </NavbarBrand>   
-     
-      
       <LoginButton loggedInUser={props.user}/>
       <LogoutButton loggedInUser={props.user}/>
     </Container>  
@@ -147,6 +149,43 @@ const Footer = () => {
 };
 
 const Landing = (props) => {   
+  const [addUser] = useMutation(ADD_USER, {
+    onCompleted({ addUser }) {
+      console.log(`user added`);
+    },
+  });
+
+    useEffect(() => {
+      if(props?.user){
+        console.log(JSON.stringify(props?.user));
+        axiosClient.PostQuery(GET_USER_BY_SOCIAL_ID, { socialId: props?.user.sub }).then((result) => {
+          const userDbRecord = result.data.data;
+          
+          if(userDbRecord.userBySocialId == null){
+             console.log(`user not linked`);
+             // add user record
+             addUser({
+              variables: {
+                user: {
+                  firstName: props.user.given_name,
+                  lastName: props.user.family_name,
+                  email: props.user.nickname,
+                  userName: props.user.nickname,
+                  socialLoginId: props.user.sub,
+                  socialProfilePicUrl: props.user.picture
+                },
+              },
+            });
+          }
+          else {
+             console.log(`user linked`);
+          }
+        });        
+      }
+      else{
+        console.log(`No user data was provided`);
+      }
+    }, []);
 
     return (
       <React.Fragment>
@@ -161,10 +200,8 @@ const Landing = (props) => {
 Landing.layout = HomeLayout;
 
 export async function getServerSideProps(context) {
-    const session = await auth0.getSession(context.req);
-    console.log(session);
-    return { props: session ? session : {} };
- 
+    const session = await auth0.getSession(context.req);    
+    return { props: session ? session : {} }; 
 }
 
 export default Landing;
