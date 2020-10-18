@@ -169,7 +169,7 @@ const Landing = (props) => {
                 user: {
                   firstName: props.user.given_name,
                   lastName: props.user.family_name,
-                  email: props.user.nickname,
+                  email: props.user.email,
                   userName: props.user.nickname,
                   socialLoginId: props.user.sub,
                   socialProfilePicUrl: props.user.picture

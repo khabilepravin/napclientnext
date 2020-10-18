@@ -5,7 +5,7 @@ export default initAuth0({
   domain: process.env.AUTH0_DOMAIN,
   clientId: process.env.AUTH0_CLIENTID,
   clientSecret: process.env.AUTH0_CLIENTSECRET,
-  scope: 'openid profile',
+  scope: 'openid email profile',
   redirectUri: 'http://localhost:3000/api/callback',
   postLogoutRedirectUri: 'http://localhost:3000',
   session: {
