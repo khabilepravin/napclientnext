@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import fetch from 'isomorphic-unfetch';
 import auth0 from "../utils/auth0";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/react-hooks";
+import  localAuth  from "../utils/localAuth";
 
 import {
   Button,
@@ -150,9 +151,10 @@ const Footer = () => {
 
 const Landing = (props) => {   
   const [addUser] = useMutation(ADD_USER, {
-    onCompleted({ addUser }) {
-      console.log(`user added`);
-    },
+    onCompleted: (data) => {
+      console.log(`returned data ${JSON.stringify(data)}`);
+      localAuth.putUserId(data.addUser.id);
+    }
   });
 
     useEffect(() => {
@@ -162,7 +164,6 @@ const Landing = (props) => {
           const userDbRecord = result.data.data;
           
           if(userDbRecord.userBySocialId == null){
-             console.log(`user not linked`);
              // add user record
              addUser({
               variables: {
@@ -174,16 +175,16 @@ const Landing = (props) => {
                   socialLoginId: props.user.sub,
                   socialProfilePicUrl: props.user.picture
                 },
-              },
+              }              
             });
           }
           else {
-             console.log(`user linked`);
+             localAuth.putUserId(userDbRecord.userBySocialId.id)
           }
         });        
       }
       else{
-        console.log(`No user data was provided`);
+        // just broswing as a guest
       }
     }, []);
 

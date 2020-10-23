@@ -1,6 +1,5 @@
 import '../styles/modern.css'
 import React from "react";
-
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 //TODO: Find a permanent solution for TLS verification
