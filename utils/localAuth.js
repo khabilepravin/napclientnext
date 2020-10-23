@@ -4,7 +4,7 @@ class localAuth {
     }
 
     static getUserId(){
-        localStorage.getItem('USERID');
+        return localStorage.getItem('USERID');
     }
 
     static removeUserId(){

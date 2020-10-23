@@ -5,6 +5,7 @@ import axiosClient from "../../lib/apiproxy/axiosClient";
 import { CREATE_TEST } from "../../lib/apiproxy/mutations";
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from "next/router";
+import localAuth from "../../utils/localAuth";
 
 import {
   Container,
@@ -20,7 +21,7 @@ import {
 const Tests = (props) => {
    const router = useRouter();
    const handleStartPractice = async (testId) => {
-    const userId = uuidv4();
+    const userId = localAuth.getUserId();
     const response = await axiosClient.PostQuery(CREATE_TEST, { userTest: { testId: testId, userId: userId, mode: 'practice' } });
     router.push(`/practice/${response.data.data.addUserTest.id}`);
   };
