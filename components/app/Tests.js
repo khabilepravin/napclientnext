@@ -21,9 +21,9 @@ import {
 const Tests = (props) => {
    const router = useRouter();
    const handleStartPractice = async (testId) => {
-    const userId = localAuth.getUserId();
-    const response = await axiosClient.PostQuery(CREATE_TEST, { userTest: { testId: testId, userId: userId, mode: 'practice' } });
-    router.push(`/practice/${response.data.data.addUserTest.id}`);
+    //const userId = localAuth.getUserId();
+    //const response = await axiosClient.PostQuery(CREATE_TEST, { userTest: { testId: testId, userId: userId, mode: 'practice' } });
+    router.push(`/practice/${testId}`);
   };
 
   let availableTests = null;
