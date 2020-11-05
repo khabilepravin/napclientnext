@@ -46,11 +46,11 @@ const Intro = () => (
             <Col md={12} xl={8} className="mx-auto text-center">
               <div className="d-block my-4">
                 <h1 className="display-4 font-weight-bold mb-3 text-white">
-                  Ever increasing comprehensive set of tests for year 3, 6 students
+                  Comprehensive NAPLAN and ICAS style tests for primary students
                 </h1>
                 <p className="lead font-weight-light mb-3 landing-text">
-                                    A professional package that comes with hunderds of tests with score tracking and automatic shuffling of questions and answers.
-                                    Makes re-taking test less repetitive and more challanging
+                                    Hunderds of tests with score tracking and automatic shuffling of questions and answers.
+                                    Resume where you left of from any device, keeps track of your progress.
                                     </p>
                 
               </div>
@@ -191,8 +191,7 @@ const Landing = (props) => {
     return (
       <React.Fragment>
         <Header user={Object.keys(props).length > 0 ? props.user : null} />
-        <Intro />
-        <Navigation />        
+        <Intro />               
         <TestTypes/>
         <Footer />
       </React.Fragment>
