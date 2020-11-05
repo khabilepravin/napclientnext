@@ -53,11 +53,11 @@ const PracticeTest = (props) => {
     },
   });
 
-  document.addEventListener('keypress', function (e) {
-    if(e.key === 'Enter'){
-      incrementQuestionIndex();
-    }
-  });   
+  // document.addEventListener('keypress', function (e) {
+  //   if(e.key === 'Enter'){
+  //     incrementQuestionIndex();
+  //   }
+  // });   
 
   const [addUserTestRecord] = useMutation(ADD_USER_TEST_RECORD, {
     onCompleted({ addUserTestRecord }) {

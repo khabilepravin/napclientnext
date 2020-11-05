@@ -20,9 +20,7 @@ import {
 
 const Tests = (props) => {
    const router = useRouter();
-   const handleStartPractice = async (testId) => {
-    //const userId = localAuth.getUserId();
-    //const response = await axiosClient.PostQuery(CREATE_TEST, { userTest: { testId: testId, userId: userId, mode: 'practice' } });
+   const handleStartPractice = async (testId) => {    
     router.push(`/practice/${testId}`);
   };
 

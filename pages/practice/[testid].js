@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
       };      
     }
     else { // can't start the test if not logged in
-      context.res.writeHead(307, {Location: '/api/login'});
+      context.res.writeHead(307, {Location: `/api/login?redirectTo=/practice/${testid}`});
       context.res.end();
       return;
     }   
