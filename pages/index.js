@@ -2,7 +2,7 @@ import React,{ useEffect } from "react";
 import Link from 'next/link';
 import  LoginButton  from "../components/app/LoginButton";
 import LogoutButton from "../components/app/LogoutButton";
-import HomeLayout from "../components/layout/HomeLayout";
+import HomeLayout from "../components/layout/Layout";
 import AppLogo from "../components/theme/AppLogo";
 import { useRouter } from "next/router";
 import fetch from 'isomorphic-unfetch';
@@ -22,6 +22,7 @@ import TestTypes from "../components/app/TestTypes";
 import axiosClient from "../lib/apiproxy/axiosClient";
 import { GET_USER_BY_SOCIAL_ID } from "../lib/apiproxy/queries";
 import { ADD_USER } from "../lib/apiproxy/mutations";
+import Layout from "../components/layout/Layout";
 
 
 
@@ -36,6 +37,7 @@ const Header = (props) => (
     </Container>  
   </Navbar>
 );
+
 
 const Intro = () => (
   <section className="pt-7 pb-5 landing-bg text-white overflow-hidden">
@@ -149,59 +151,12 @@ const Footer = () => {
   </section>
 };
 
-const Landing = (props) => {   
-  const [addUser] = useMutation(ADD_USER, {
-    onCompleted: (data) => {
-      console.log(`returned data ${JSON.stringify(data)}`);
-      localAuth.putUserId(data.addUser.id);
-    }
-  });
-
-    useEffect(() => {
-      if(props?.user){
-        console.log(JSON.stringify(props?.user));
-        axiosClient.PostQuery(GET_USER_BY_SOCIAL_ID, { socialId: props?.user.sub }).then((result) => {
-          const userDbRecord = result.data.data;
-          
-          if(userDbRecord.userBySocialId == null){
-             // add user record
-             addUser({
-              variables: {
-                user: {
-                  firstName: props.user.given_name,
-                  lastName: props.user.family_name,
-                  email: props.user.email,
-                  userName: props.user.nickname,
-                  socialLoginId: props.user.sub,
-                  socialProfilePicUrl: props.user.picture
-                },
-              }              
-            });
-          }
-          else {
-             localAuth.putUserId(userDbRecord.userBySocialId.id)
-          }
-        });        
-      }
-      else{
-        // just broswing as a guest
-      }
-    }, []);
-
+const Landing = (props) => {
     return (
-      <React.Fragment>
-        <Header user={Object.keys(props).length > 0 ? props.user : null} />
-        <Intro />               
-        <TestTypes/>
-        <Footer />
-      </React.Fragment>
+      <Layout>
+         <TestTypes/> 
+      </Layout>     
     );  
 };
-Landing.layout = HomeLayout;
-
-export async function getServerSideProps(context) {
-    const session = await auth0.getSession(context.req);    
-    return { props: session ? session : {} }; 
-}
 
 export default Landing;

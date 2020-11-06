@@ -1,12 +1,10 @@
 import React from "react";
-import Dashboard from "../../components/layout/Dashboard";
 import Result from "../../components/app/practice/Result";
+import Layout from "../../components/layout/Layout";
 
 const TestResult = (props) => {
-    return <Result testInstanceId={props.testInstanceId}/>;
+    return <Layout forPractice="true"><Result testInstanceId={props.testInstanceId}/></Layout>;
 }
-
-TestResult.layout = Dashboard;  
 
 export function getServerSideProps(context) {
     const { testinstanceid } = context.query;

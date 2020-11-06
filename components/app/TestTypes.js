@@ -17,7 +17,7 @@ const TestTypes = (props) => {
 
         <Row>
           
-          <Col md={6} lg={4}>
+            <Col md="6" lg="4">
             <Card tag="blockquote" className="border"  onClick={() => router.push("/naplan/3")}>
               <CardBody className="p-4">
                 <div className="d-flex align-items-center mb-3">
@@ -31,14 +31,14 @@ const TestTypes = (props) => {
                     </small>
                   </div>
                 </div>
-                <p className="lead mb-2">10 tests including 400+ questions</p>
+                 <p className="lead mb-2">10 tests including 400+ questions</p>
 
                 <div className="landing-stars"></div>
               </CardBody>
             </Card>
-          </Col>
+          </Col> 
 
-          <Col md={6} lg={4}>
+         <Col md={6} lg={4}>
             <Card tag="blockquote" className="border"  onClick={() => router.push("/icas/3")}>
               <CardBody className="p-4">
                 <div className="d-flex align-items-center mb-3">
@@ -77,7 +77,7 @@ const TestTypes = (props) => {
                 <div className="landing-stars"></div>
               </CardBody>
             </Card>
-          </Col>
+          </Col> 
         </Row>
       </Container>
     </section>

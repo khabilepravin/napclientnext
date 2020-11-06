@@ -6,11 +6,12 @@ import axiosClient from "../../lib/apiproxy/axiosClient";
 import { GET_USER_TEST_INSTANCE } from "../../lib/apiproxy/queries";
 import auth0 from "../../utils/auth0";
 import { CREATE_TEST } from "../../lib/apiproxy/mutations";
+import Layout from "../../components/layout/Layout";
 
 
 const Practice = (props) => {
     const router = useRouter();
-    return <PracticeTest userTestInstance={props.userTestById}/>
+    return <Layout forPractice="true"><PracticeTest userTestInstance={props.userTestById}/></Layout>
 }
 
 Practice.layout = Dashboard;

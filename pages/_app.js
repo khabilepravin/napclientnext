@@ -9,8 +9,10 @@ const client = new ApolloClient({
 });
 
 function MyApp({ Component, pageProps }) {
+  //console.log(`here is the layout ${Component.layout}`)
   const Layout = Component.layout || (children => <>{children}</>);
-  return <Layout><ApolloProvider client={client}><Component {...pageProps} /></ApolloProvider></Layout>
+  return  (<ApolloProvider client={client}><Component {...pageProps}></Component></ApolloProvider>)
+  //(<Layout><Component {...pageProps}/>{/* <ApolloProvider client={client}><Component {...pageProps} /></ApolloProvider> */}</Layout>)
 }
 
 export default MyApp

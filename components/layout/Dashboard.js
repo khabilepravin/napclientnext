@@ -9,14 +9,12 @@ import Footer from "../theme/Footer";
 
 const Dashboard = ({  children }) => (
   <React.Fragment>
-    <Wrapper>
-     
+    <Wrapper>     
       <Main>
         <Navbar />
         <Content>{children}</Content>
         <Footer />
-      </Main>
-     
+      </Main>     
     </Wrapper>
   </React.Fragment>
 );
