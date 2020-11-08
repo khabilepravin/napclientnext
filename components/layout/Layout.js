@@ -25,7 +25,7 @@ const Layout = (props) => {
   } else {
     return (
       <>
-        <AppHeader />
+        <AppHeader user={props.user}/>
         <Intro />
         {props.children}
         <Footer />

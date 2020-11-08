@@ -8,24 +8,17 @@ const LoginButton = (props) => {
     router.push("/api/login");
   };
 
-  if(!props.loggedInUser)
-  {
-    return (    
-      <Button
-        color="success"
-        target="_blank"
-        rel="noreferrer noopener"
-        className="my-2 ml-2 btn-pill"     
-        onClick={handleLoginClick}   
-      >
-        Login
-      </Button>          
-    );
-  }
-  else{
-    return <></>;
-  }
-  
+  return (
+    <Button
+      color="success"
+      target="_blank"
+      rel="noreferrer noopener"
+      className="my-2 ml-2 btn-pill"
+      onClick={handleLoginClick}
+    >
+      Login
+    </Button>
+  );
 };
 
 export default LoginButton;
