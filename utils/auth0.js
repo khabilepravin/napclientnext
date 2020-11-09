@@ -6,8 +6,8 @@ export default initAuth0({
   clientId: process.env.AUTH0_CLIENTID,
   clientSecret: process.env.AUTH0_CLIENTSECRET,
   scope: 'openid email profile',
-  redirectUri: 'http://localhost:3000/api/callback',
-  postLogoutRedirectUri: 'http://localhost:3000',
+  redirectUri: process.env.AUTH0_REDIRECT_URI,
+  postLogoutRedirectUri: process.env.AUTH0_LOGOUT_URI,
   session: {
     // The secret used to encrypt the cookie.
     cookieSecret: process.env.AUTH0_COOKIESECRET,
