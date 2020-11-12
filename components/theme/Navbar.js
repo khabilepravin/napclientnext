@@ -3,6 +3,7 @@ import React from "react";
 //import { toggleSidebar } from "../../redux/actions/sidebarActions";
 import classNames from "classnames";
 import AppLogo from "../theme/AppLogo";
+import Link from "next/link";
 
 import {
   Row,
@@ -280,16 +281,14 @@ const NavbarDropdowns = (
 
 const NavbarComponent = () => {
   return (
-    <Navbar dark expand="xs" className="absolute-top w-100 py-2">
-      
+    <Navbar dark expand="xs" className="absolute-top w-100 py-2">      
         <React.Fragment>
-          {/* <NavbarDropdowns /> */}
-          <NavbarBrand className="font-weight-bold" href="/">
-            <AppLogo/>Prac Test
-          </NavbarBrand>   
-          <NavbarSearch />
           
-          {/* <NavbarToggle /> */}
+          <NavbarBrand className="font-weight-bold">
+            <AppLogo/><Link href="/"><a className="font-weight-bold navbar-brand">Prac Test</a></Link>
+          </NavbarBrand>   
+          
+          <NavbarSearch />
         </React.Fragment>
       
     </Navbar>
