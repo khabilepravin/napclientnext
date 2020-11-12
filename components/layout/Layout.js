@@ -11,16 +11,14 @@ import Content from "../theme/Content";
 
 const Layout = (props) => {
   if (props.forPractice) {
-    return (
-      <>
+    return (      
       <Wrapper>     
         <Main>
           <Navbar />
           <Content>{props.children}</Content>
           <Footer />
         </Main>     
-      </Wrapper>
-    </>
+      </Wrapper>    
     );
   } else {
     return (
