@@ -288,7 +288,7 @@ const NavbarComponent = () => {
             <AppLogo/><Link href="/"><a className="font-weight-bold navbar-brand">Prac Test</a></Link>
           </NavbarBrand>   
           
-          <NavbarSearch />
+          {/* <NavbarSearch /> */}
         </React.Fragment>
       
     </Navbar>

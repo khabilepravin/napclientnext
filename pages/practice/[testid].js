@@ -11,7 +11,7 @@ import Layout from "../../components/layout/Layout";
 
 const Practice = (props) => {
     const router = useRouter();
-    return <Layout forPractice="true"><PracticeTest userTestInstance={props.userTestById}/></Layout>
+    return <Layout><PracticeTest userTestInstance={props.userTestById}/></Layout>
 }
 
 Practice.layout = Dashboard;

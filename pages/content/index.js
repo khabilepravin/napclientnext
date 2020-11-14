@@ -1,11 +1,11 @@
 import React from "react";
-import Dashboard from "../../components/layout/Dashboard";
 import TestList from "../../components/app/TestList";
+import Layout from "../../components/layout/Layout";
 
 const ContentHome = () =>(
-     <TestList/>
+     <Layout childPage="true">
+          <TestList/>
+     </Layout>
 );
-
-ContentHome.layout = Dashboard;
 
 export default ContentHome;

@@ -8,28 +8,16 @@ import Main from "../theme/Main";
 import Navbar from "../theme/Navbar";
 import Content from "../theme/Content";
 
-
 const Layout = (props) => {
-  if (props.forPractice) {
-    return (      
-      <Wrapper>     
-        <Main>
-          <Navbar />
-          <Content>{props.children}</Content>
-          <Footer />
-        </Main>     
-      </Wrapper>    
-    );
-  } else {
-    return (
-      <>
-        <AppHeader user={props.user}/>
-        <Intro />
-        {props.children}
-        <Footer />
-      </>
-    );
-  }
+  return (
+    <Wrapper>
+      <Main>
+        <Navbar />
+        <Content>{props.children}</Content>
+        {/* <Footer /> */}
+      </Main>
+    </Wrapper>
+  );
 };
 
 export default Layout;

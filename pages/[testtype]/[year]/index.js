@@ -18,7 +18,7 @@ import {
 const PracticeTest = (props) => {
   const router = useRouter();
   return (
-    <Layout forPractice="true">
+    <Layout childPage="true">
       <Container fluid>
         <Row>
           <Col>
