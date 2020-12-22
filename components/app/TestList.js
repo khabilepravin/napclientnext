@@ -3,6 +3,7 @@ import {  useQuery } from "@apollo/react-hooks";
 
 import { GET_TESTS } from "../../lib/apiproxy/queries";
 import { useRouter } from "next/router";
+import  Link from 'next/link';
 
 import {
   Breadcrumb,
@@ -57,11 +58,11 @@ function TestList({ history })  {
       text: "Actions",
       dataField: "",
       formatter: (cell, row, rowIndex) => (
-        <Button
-          onClick={() => history.push(`/testpages/questionslist/${row.id}`)}
-        >
+        <Link href={`/content/addtest/testadd/${row.id}`}>
+        <a>
          Questions
-        </Button>
+        </a>
+        </Link>
       ),
     },
   ];

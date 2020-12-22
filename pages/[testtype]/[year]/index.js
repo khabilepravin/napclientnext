@@ -14,6 +14,7 @@ import {
   CardBody,
   Row,
 } from "reactstrap";
+import auth0 from "../../../utils/auth0";
 
 const PracticeTest = (props) => {
   const router = useRouter();
@@ -42,7 +43,8 @@ const PracticeTest = (props) => {
 export async function getServerSideProps(context) {
   const { testtype } = context.query;
   const { year } = context.query;
-
+  const session = await auth0.getSession(context.req);
+  
   const response = await axiosClient.PostQuery(GET_TESTS_BY_TYPE_AND_YEAR, {
     testType: testtype,
     year: year,

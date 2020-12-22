@@ -3,7 +3,7 @@ import TestList from "../../components/app/TestList";
 import Layout from "../../components/layout/Layout";
 
 const ContentHome = () =>(
-     <Layout childPage="true">
+     <Layout>
           <TestList/>
      </Layout>
 );

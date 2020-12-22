@@ -1,9 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import { ADD_TEST } from "../../lib/apiproxy/mutations";
+import { ADD_TEST } from "../../../lib/apiproxy/mutations";
 import { useMutation } from "@apollo/react-hooks";
-import Layout from "../../components/layout/Layout";
+import Layout from "../../../components/layout/Layout";
 
 import {
   Card,
