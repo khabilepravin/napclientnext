@@ -98,7 +98,7 @@ function TestList({ history })  {
             <Button
               color="secondary"
               className="mr-1 mb-1"
-              onClick={() => { router.push("/content/testadd") }}>
+              onClick={() => { router.push("/content/addtest/testadd") }}>
               <FontAwesomeIcon icon={faPlus} /> Add Test
             </Button>
             
