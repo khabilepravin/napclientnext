@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import ReactQuill,{Quill} from "react-quill";
+//import ReactQuill,{Quill} from "react-quill";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
-import { showToastr } from "../../services/themeService";
+import { showToastr } from "../../utils/themeService";
 
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +19,7 @@ const QuestionAdd = React.memo((props) => {
   const [questionText, setQuestionText] = useState('');
   const [imageFile, setImageFile] = useState();  
   const [isInProgress, setIsInprogress] = useState(false);
+  const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
 
   useEffect(() => {
     if(props.editedQuestion) {
@@ -54,7 +55,7 @@ const QuestionAdd = React.memo((props) => {
 
     if (props.editedQuestion) {
       axios
-        .put(`${process.env.REACT_APP_REST_API_ENDPOINT}/question`, formData, {
+        .put(`${process.env.restApiUrl}/question`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -69,7 +70,7 @@ const QuestionAdd = React.memo((props) => {
         });
     } else {
       axios
-        .post(`${process.env.REACT_APP_REST_API_ENDPOINT}/question`, formData, {
+        .post(`${process.env.restApiUrl}/question`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

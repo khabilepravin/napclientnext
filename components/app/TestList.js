@@ -24,7 +24,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function TestList({ history })  {
+function TestList()  {
   const router = useRouter();
   const { loading, error, data } = useQuery(GET_TESTS);
 
@@ -58,7 +58,7 @@ function TestList({ history })  {
       text: "Actions",
       dataField: "",
       formatter: (cell, row, rowIndex) => (
-        <Link href={`/content/addtest/testadd/${row.id}`}>
+        <Link href={`/content/questions/${row.id}`}>
         <a>
          Questions
         </a>
