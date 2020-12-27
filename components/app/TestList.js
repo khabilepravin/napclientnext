@@ -26,7 +26,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function TestList()  {
   const router = useRouter();
-  const { loading, error, data } = useQuery(GET_TESTS);
+  const { loading, error, data } = useQuery(GET_TESTS,{
+    fetchPolicy: "no-cache"
+  });
+  
 
   const tableColumns = [
     {

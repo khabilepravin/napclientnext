@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
     const { testid } = context.query;
     const session = await auth0.getSession(context.req);
     if(session) {      
-      // See if these two can be combined into one
+      //TODO: See if these two can be combined into one
       const response = await axiosClient.PostQuery(CREATE_TEST, { userTest: { testId: testid, userId: session.user.userId, mode: 'practice' } });
       const userTestInstanceResponse = await axiosClient.PostQuery(GET_USER_TEST_INSTANCE,
       {
