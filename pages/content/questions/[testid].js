@@ -3,8 +3,6 @@ import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import { DELETE_QUESTION } from "../../../lib/apiproxy/mutations";
 import { showToastr } from "../../../utils/themeService";
 
-//import { Link } from "react-router-dom";
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -105,7 +103,7 @@ const QuestionsList = () => {
           </Button>
           <span> </span>
           <Button
-            onClick={() => console.log('Answers')}
+            onClick={() => router.push(`/content/answers/${row.id}`)}
           >
             Answers
           </Button>
