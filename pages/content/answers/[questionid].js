@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import Layout from "../../../components/layout/Layout";
 import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 
-import {Link} from "next/link";
+//import {Link} from "next/link";
 
 import {
   Breadcrumb,
@@ -25,9 +25,10 @@ import HeaderTitle from "../../../components/theme/HeaderTitle";
 
 import BootstrapTable from "react-bootstrap-table-next";
 
-const AnswersList = () => {
+const AnswersList = React.memo((props) => {
   const router = useRouter();
-  const { questionid } = router.query;
+  //const { questionid } = router.query;
+  //const [questionId, setQuestionId] = useState(questionid);
 
   const [question, setQuestion] = useState();
   const [selectedAnswer, setSelectedAnswer] = useState();
@@ -40,13 +41,14 @@ const AnswersList = () => {
   });
 
   useEffect(() => {
-    getAnswers({ variables: { questionId: questionid } });
+      console.log(`this freaking effect is getting called with questionid ${props.questionId}`);
+    getAnswers({ variables: { questionId: props.questionId } });
   }, []);
 
   const [deleteAnswer] = useMutation(DELETE_ANSWER,{
     onCompleted:(data)=>{
       showToastr("Success", "Answer deleted successfully");
-      getAnswers({ variables: { questionId: questionid } });
+      getAnswers({ variables: { questionId: props.questionId } });
     }});
 
   const deleteAnswerHandler = (id) => {
@@ -63,7 +65,7 @@ const AnswersList = () => {
 
   const handleAnswerSaved = () => {
     setSelectedAnswer(null);
-    getAnswers({ variables: { questionId: questionid } });
+    getAnswers({ variables: { questionId: props.questionId } });
   };
 
   const tableColumns = [
@@ -132,7 +134,7 @@ const AnswersList = () => {
         </CardHeader>
         <CardBody>
           <AnswerAdd
-            questionId={questionid}
+            questionId={props.questionId}
             editingAnswer={selectedAnswer}
             onAnswerSaved={handleAnswerSaved}
           />
@@ -155,6 +157,14 @@ const AnswersList = () => {
     </Container>
     </Layout>
   );
-};
+});
 
+
+export function getServerSideProps(context) {
+    const { questionid } = context.query;
+    
+    return {
+      props: { questionId: questionid }
+    };
+}
 export default AnswersList;
