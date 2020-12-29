@@ -4,6 +4,7 @@ import AppHeader from "./AppHeader";
 import Footer from "./Footer";
 
 const LandingLayout = (props) => {
+  console.log(props.user);
   return (
     <>
       <AppHeader user={props.user} />

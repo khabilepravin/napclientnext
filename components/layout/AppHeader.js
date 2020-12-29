@@ -1,10 +1,8 @@
 import React from "react";
-import classNames from "classnames";
 import { NavbarBrand, Navbar, Container, Button } from "reactstrap";
 
 import AppLogo from "../theme/AppLogo";
 import LoginButton from "../app/LoginButton";
-import LogoutButton from "../app/LogoutButton";
 import ProfileOptions from "../app/ProfileOptions";
 
 const AppHeader = (props) => (
@@ -16,7 +14,7 @@ const AppHeader = (props) => (
       </NavbarBrand>
       {!props.user && <LoginButton />}
       {props.user && (
-        <ProfileOptions/>
+        <ProfileOptions user={props.user}/>
       )}
     </Container>
   </Navbar>
