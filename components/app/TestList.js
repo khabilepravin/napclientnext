@@ -61,11 +61,15 @@ function TestList()  {
       text: "Actions",
       dataField: "",
       formatter: (cell, row, rowIndex) => (
-        <Link href={`/content/questions/${row.id}`}>
-        <a>
-         Questions
-        </a>
-        </Link>
+        <>
+          <Button onClick={() => router.push(`/content/edittest/${row.id}`)}>
+            Edit
+          </Button>
+          <> </>
+          <Button onClick={() => router.push(`/content/questions/${row.id}`)}>
+            Questions
+          </Button>
+        </>
       ),
     },
   ];
