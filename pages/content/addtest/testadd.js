@@ -124,6 +124,23 @@ const TestAdd = () => {
                     )}
                   </FormGroup>
                   <FormGroup>
+                    <Label>Type</Label>
+                    <Input
+                      type="select"
+                      id="exampleCustomSelect"
+                      name="testType"
+                      className="mb-3"
+                      innerRef={register}
+                    >
+                      <option value="">Select Type</option>
+                      <option>ICAS</option>
+                      <option>NAPLAN</option>
+                    </Input>
+                    {errors.subject && (
+                      <p className="text-danger">{errors.subject.message}</p>
+                    )}
+                  </FormGroup>
+                  <FormGroup>
                     <Label>Year</Label>
                     <Input
                       type="select"
