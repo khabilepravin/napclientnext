@@ -10,6 +10,7 @@ const Footer = () => {
             <h2 className="mb-3">
               Join thousands of students who are already mastering with our practice tests
             </h2>          
+            <h5>*This is not an officially endorsed publication of the NAPLAN program and is produced independently of the Australian Curriculum, Assessment and Reporting Authority</h5>
           </Col>
         </Row>
       </Container>
