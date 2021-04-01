@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/react-hooks";
 import { GET_USERTEST_RECORD } from "../../../lib/apiproxy/queries";
-import { ADD_USER_TEST_RECORD } from "../../../lib/apiproxy/mutations";
+import { ADD_USER_TEST_RECORD, USER_TEST_UPDATE } from "../../../lib/apiproxy/mutations";
 //import { Link } from "react-router-dom";
 import Question from "./Question"
 import RoboSwitch from "./RoboSwitch"
@@ -65,9 +65,23 @@ const PracticeTest = (props) => {
     },
   });
 
+  const [updateUserTest] = useMutation(USER_TEST_UPDATE,{
+    onCompleted({ updateUserTest }){
+      router.push(`/testresult/${props.userTestInstance.id}`);
+    }
+  })
+
   const incrementQuestionIndex = () => {
     if (currentQuestionIndex === props.userTestInstance.questions.length - 1) {
-      router.push(`/testresult/${props.userTestInstance.id}`);
+      updateUserTest({
+        variables: {
+          userTest: {
+            id: props.userTestInstance.id,
+            timeSpentOnTest: 45,
+            isComplete: true
+          },
+        },
+      });
     } else {
       setcurrentQuestionIndex(currentQuestionIndex + 1);
       setCanProcced(false);

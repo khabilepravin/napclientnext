@@ -3,7 +3,7 @@ import Result from "../../components/app/practice/Result";
 import Layout from "../../components/layout/Layout";
 
 const TestResult = (props) => {
-    return <Layout forPractice="true"><Result testInstanceId={props.testInstanceId}/></Layout>;
+    return <Layout><Result testInstanceId={props.testInstanceId}/></Layout>;
 }
 
 export function getServerSideProps(context) {

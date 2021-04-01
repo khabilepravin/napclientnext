@@ -10,7 +10,7 @@ const Intro = () => (
               <Col md={12} xl={8} className="mx-auto text-center">
                 <div className="d-block my-4">
                   <h1 className="display-4 font-weight-bold mb-3 text-white">
-                    Comprehensive NAPLAN and ICAS style tests for primary students
+                    Comprehensive NAPLAN-Style* and ICAS-Style tests for primary school students
                   </h1>
                   <p className="lead font-weight-light mb-3 landing-text">
                                       Hunderds of tests with score tracking and automatic shuffling of questions and answers.

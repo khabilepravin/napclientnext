@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import axios from "axios";
-import { showToastr } from "../../services/themeService";
+import { showToastr } from  "../../utils/themeService";
 import { Form, FormGroup, Input, Label, Button, CustomInput } from "reactstrap";
 
 import { faSave } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +12,7 @@ const schema = Yup.object().shape({
   questionId: Yup.string().required("QuestionId is required") 
 });
 
-const AnswerAdd = (props) => {
+const AnswerAdd = React.memo((props) => {
   const [questionId, setQuestionId] = useState(props.questionId);
   const [imageFile, setImageFile] = useState();
   const [isInProgress, setIsInProgress] = useState(false);
@@ -42,7 +42,7 @@ const AnswerAdd = (props) => {
     if (props.editingAnswer) {
       formData.append("id", props.editingAnswer.id);
       axios
-        .put(`${process.env.REACT_APP_REST_API_ENDPOINT}/answer`, formData, {
+        .put(`${process.env.restApiUrl}/answer`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -58,7 +58,7 @@ const AnswerAdd = (props) => {
         });
     } else {
         axios
-        .post(`${process.env.REACT_APP_REST_API_ENDPOINT}/answer`, formData, {
+        .post(`${process.env.restApiUrl}/answer`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -146,6 +146,6 @@ const AnswerAdd = (props) => {
       </Button>
     </Form>
   );
-};
+});
 
 export default AnswerAdd;

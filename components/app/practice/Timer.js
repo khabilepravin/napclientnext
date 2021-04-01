@@ -1,50 +1,37 @@
-import React, { Component, PureComponent } from "react";
+import React, { useEffect, useState } from "react";
 
-export default class Timer extends PureComponent {
-  constructor(props) {
-    super(props);
+const Timer = ({ minutes }) => {
+    const [countdownTimer, setCountdownTimer] = useState({ minutes:minutes, seconds:0 });
 
-  }
-  state = {
-      minutes: this.props.minutes,
-      seconds: 0,
-  }
+    useEffect(() => {
+        console.log(countdownTimer);
+        const interval = setInterval(() => {
+            if (countdownTimer.seconds > 0) {
+                setCountdownTimer({ ...countdownTimer, seconds: (countdownTimer.seconds - 1)   });
+            }
+            if (countdownTimer.seconds === 0) {
+                if (countdownTimer.minutes === 0) {
+                    clearInterval(interval)
+                } else {
+                    setCountdownTimer({ minutes: countdownTimer.minutes -1, seconds: 59 });
+                }
+            } 
+        }, 1000);
 
-  componentDidMount() {
-      this.myInterval = setInterval(() => {
-          const { seconds, minutes } = this.state
+        return () => {
+            clearInterval(interval);
+        }
+    }, [countdownTimer]);
 
-          if (seconds > 0) {
-              this.setState(({ seconds }) => ({
-                  seconds: seconds - 1
-              }))
-          }
-          if (seconds === 0) {
-              if (minutes === 0) {
-                  clearInterval(this.myInterval)
-              } else {
-                  this.setState(({ minutes }) => ({
-                      minutes: minutes - 1,
-                      seconds: 59
-                  }))
-              }
-          } 
-      }, 1000)
-  }
+    return (
+        <div className="float-right">
+            { countdownTimer.minutes === 0 && countdownTimer.seconds === 0
+                ? <h4>Times up!</h4>
+                : <h4>Time Remaining: {countdownTimer.minutes}:{countdownTimer.seconds < 10 ? `0${countdownTimer.seconds}` : countdownTimer.seconds}</h4>
+            }
+        </div>
+    )
 
-  componentWillUnmount() {
-      clearInterval(this.myInterval)
-  }
-
-  render() {
-      const { minutes, seconds } = this.state
-      return (
-          <div className="float-right">
-              { minutes === 0 && seconds === 0
-                  ? <h4>Times up!</h4>
-                  : <h4>Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h4>
-              }
-          </div>
-      )
-  }
 }
+
+export default Timer;
