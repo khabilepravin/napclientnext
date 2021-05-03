@@ -1,6 +1,6 @@
 module.exports = {
     env: {
-      graphApiPath: 'https://www.moviegrep.com/nap/graphql',
-      restApiUrl: 'https://www.moviegrep.com/nap/api'
+      graphApiPath: 'https://localhost:44379/graphql',
+      restApiUrl: 'https://localhost:44379/api'
     },
   }
