@@ -4,7 +4,6 @@ const Timer = ({ minutes }) => {
     const [countdownTimer, setCountdownTimer] = useState({ minutes:minutes, seconds:0 });
 
     useEffect(() => {
-        console.log(countdownTimer);
         const interval = setInterval(() => {
             if (countdownTimer.seconds > 0) {
                 setCountdownTimer({ ...countdownTimer, seconds: (countdownTimer.seconds - 1)   });
