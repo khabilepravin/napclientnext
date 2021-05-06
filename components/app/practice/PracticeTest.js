@@ -50,6 +50,9 @@ const PracticeTest = (props) => {
         setUserAnswer(data.userTestRecord.answerId);
         setUserAnswerText(data.userTestRecord.answerText);
       }
+      else{
+        setUserAnswerText(null);
+      }
     },
   });
 
