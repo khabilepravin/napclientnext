@@ -18,6 +18,10 @@ import {
 } from "reactstrap";
 
 const ProfileSelection = (props) => {
+  const handleStudentSelection = (id) => {
+    alert(`selected student ${id}`);
+  };
+
   return (
     <Layout>
       <Container fluid>
@@ -36,6 +40,7 @@ const ProfileSelection = (props) => {
                     studentProfiles={props.studentProfiles}
                     parentUserId={props.parentUserId}
                     testId={props.testId}
+                    studentSelected={handleStudentSelection}
                   />
                 ) : (
                   <AddEditStudent parentUserId={props.parentUserId} />

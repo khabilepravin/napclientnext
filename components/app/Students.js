@@ -15,7 +15,7 @@ const Students = (props) => {
           size="lg"
           className="mr-1"
           key={student.id}
-          onClick={() => handleStudentSelection(student.id)}
+          onClick={() => props.studentSelected(student.id)}
         >
           <FontAwesomeIcon icon={faUser} />
           <> </>
@@ -31,10 +31,6 @@ const Students = (props) => {
       </>
     );
   });
-
-  const handleStudentSelection = (studentId) => {
-    alert(`Selected student is ${studentId}`);
-  };
 
   const handleStudentEdit = (studentId) => {
     alert(`Editing student ${studentId}`);

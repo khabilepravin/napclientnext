@@ -15,7 +15,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 const Tests = (props) => {
    const router = useRouter();
    const handleStartPractice = async (testId) => {    
-    router.push(`/practice/${testId}`);
+    router.push(`/student/${testId}`);
   };
 
   const tableColumns = [
