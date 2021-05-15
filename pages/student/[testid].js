@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import auth0 from "../../utils/auth0";
 import axiosClient from "../../lib/apiproxy/axiosClient";
 import { GET_USERS_BY_PARENT_ID } from "../../lib/apiproxy/queries";
 import Layout from "../../components/layout/Layout";
-import AddEditStudent  from "../../components/app/AddEditStudent";
+import AddEditStudent from "../../components/app/AddEditStudent";
+import Students from "../../components/app/Students";
 
 import {
   Container,
@@ -16,32 +17,36 @@ import {
   Button,
 } from "reactstrap";
 
-const Students = (props) => {
-  
-  return <Layout>
-    <Container fluid>
-      <Row>
-        <Col>
-          <Card>
-            <CardHeader>
-              <CardTitle tag="h5" className="mb-0">
-                {props.studentProfiles?.length > 0 ? "Select" : "Create"} Student/Child Profile
-              </CardTitle>
-            </CardHeader>
-            <CardBody>
-              {props.studentProfiles?.length > 0 ? (
-                props.studentProfiles.map((student) => {
-                  return <Button>{student.firstName}</Button>
-                })
-              ) : (
-               <AddEditStudent parentUserId={props.parentUserId}/>
-              )}
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-  </Layout>
+const ProfileSelection = (props) => {
+  return (
+    <Layout>
+      <Container fluid>
+        <Row>
+          <Col>
+            <Card>
+              <CardHeader>
+                <CardTitle tag="h5" className="mb-0">
+                  {props.studentProfiles?.length > 0 ? "Select" : "Create"}{" "}
+                  Student/Child Profile
+                </CardTitle>
+              </CardHeader>
+              <CardBody>
+                {props.studentProfiles?.length > 0 ? (
+                  <Students
+                    studentProfiles={props.studentProfiles}
+                    parentUserId={props.parentUserId}
+                    testId={props.testId}
+                  />
+                ) : (
+                  <AddEditStudent parentUserId={props.parentUserId} />
+                )}
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </Layout>
+  );
 };
 
 export async function getServerSideProps(context) {
@@ -52,10 +57,21 @@ export async function getServerSideProps(context) {
       parentUserId: session.user.userId,
     });
 
-    return { props: { studentProfiles: response.data.usersByParentId, parentUserId: session.user.userId } };
+    return {
+      props: {
+        studentProfiles: response.data.usersByParentId,
+        parentUserId: session.user.userId,
+        testId: testid,
+      },
+    };
   } else {
-    return { props: {} };
+    // can't create the student profile if not logged in
+    context.res.writeHead(307, {
+      Location: `/api/login?redirectTo=/student/${testid}`,
+    });
+    context.res.end();
+    return;
   }
 }
 
-export default Students;
+export default ProfileSelection;

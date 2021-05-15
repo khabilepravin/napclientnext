@@ -23,6 +23,12 @@ export async function getServerSideProps(context) {
   const { testid } = context.query;
   const session = await auth0.getSession(context.req);
   if (session) {
+
+    // User has signed in using social
+    // Check if they have student/child profiles created
+    // If Yes , show student profile selection
+    // If No, Show student profile creation logic
+
     //TODO: See if these two can be combined into one
     const response = await axiosClient.PostQuery(CREATE_TEST, {
       userTest: {

@@ -4,12 +4,11 @@ import * as Yup from "yup";
 import { ADD_STUDENT, UPDATE_STUDENT } from "../../lib/apiproxy/mutations";
 import { useMutation } from "@apollo/react-hooks";
 
-import {  
+import {
   Form,
   FormGroup,
-  Input,
-  Label,
-  Button,
+  Input,  
+  Button,  
 } from "reactstrap";
 
 import {
@@ -27,19 +26,21 @@ const schema = Yup.object().shape({
 const AddEditStudent = React.memo((props) => {
   const [studentId] = useState(
     props.editedStudent ? props.editedStudent.id : null
-  );  
-  const[userName,setUserName] = useState();
+  );
+  const [userName, setUserName] = useState();  
   const router = useRouter();
 
   const [addStudent] = useMutation(ADD_STUDENT, {
     onCompleted() {
-      reset();    
+      reset();
+      props.closeModal();
     },
   });
 
   const [updateStudent] = useMutation(UPDATE_STUDENT, {
     onCompleted() {
       reset();
+      props.closeModal();
     },
   });
 
@@ -57,12 +58,14 @@ const AddEditStudent = React.memo((props) => {
       addStudent({ variables: { user: data } });
     }
   };
-
+ 
+  const handleCancel = () => {
+    props.closeModal();
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
-        <Label>Student/Child First Name</Label>
         <Input
           type="text"
           name="firstName"
@@ -71,27 +74,26 @@ const AddEditStudent = React.memo((props) => {
           defaultValue={props.editedStudent && props.editedStudent.firstName}
           onChange={handleFirstNameChange}
         />
-        {errors.firstName && <p className="text-danger">{errors.firstName.message}</p>}
+        {errors.firstName && (
+          <p className="text-danger">{errors.firstName.message}</p>
+        )}
       </FormGroup>
       <Input
-          type="hidden"
-          name="parentUserId"
-          innerRef={register}
-          value={props.parentUserId}/>
+        type="hidden"
+        name="parentUserId"
+        innerRef={register}
+        value={props.parentUserId}
+      />
       <Input
-          type="hidden"
-          name="userName"
-          innerRef={register}
-          value={userName}/>
-      <Button type="submit" color="primary" className="mr-1 mb-1">
+        type="hidden"
+        name="userName"
+        innerRef={register}
+        value={userName}
+      />
+      <Button type="submit" color="primary">
         <FontAwesomeIcon icon={faSave} /> Save
-      </Button>
-      <Button
-        type="button"
-        color="warning"
-        className="mr-1 mb-1"
-        onClick={() => router.push("/content")}
-      >
+      </Button>{" "}
+      <Button color="secondary" onClick={handleCancel}>
         <FontAwesomeIcon icon={faWindowClose} /> Cancel
       </Button>
     </Form>
