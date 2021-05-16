@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import auth0 from "../../utils/auth0";
 import axiosClient from "../../lib/apiproxy/axiosClient";
 import { GET_USERS_BY_PARENT_ID } from "../../lib/apiproxy/queries";
 import Layout from "../../components/layout/Layout";
 import AddEditStudent from "../../components/app/AddEditStudent";
 import Students from "../../components/app/Students";
+import { CREATE_TEST } from "../../lib/apiproxy/mutations";
+import { GET_USER_TEST_INSTANCE } from "../../lib/apiproxy/queries";
 
 import {
   Container,
@@ -18,8 +21,27 @@ import {
 } from "reactstrap";
 
 const ProfileSelection = (props) => {
-  const handleStudentSelection = (id) => {
-    alert(`selected student ${id}`);
+  const router = useRouter();
+  //const[userTestInstance, setUserTestInstance] = useState();
+
+  const handleStudentSelection = async (studentId) => {    
+    const response = await axiosClient.PostQuery(CREATE_TEST, {
+      userTest: {
+        testId: props.testId,
+        userId: studentId,
+        mode: "practice",
+      },
+    });
+
+    router.push(`/practice/${studentId}/${response.data.addUserTest.id}`);
+    // const userTestInstanceResponse = await axiosClient.PostQuery(
+    //   GET_USER_TEST_INSTANCE,
+    //   {
+    //     id: response.data.addUserTest.id,
+    //   }
+    // );
+
+    //setUserTestInstance(userTestInstanceResponse.data);    
   };
 
   return (
