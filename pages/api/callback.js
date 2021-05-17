@@ -21,8 +21,8 @@ export default async function callback(req, res) {
           );
 
           let userId = null;
-          if (dbUserRecordResponse.data.data.checkUserExistence != null) {
-            userId = dbUserRecordResponse.data.data.checkUserExistence.id;
+          if (dbUserRecordResponse.data.checkUserExistence != null) {
+            userId = dbUserRecordResponse.data.checkUserExistence.id;
           } else {
             userId = null;
           }

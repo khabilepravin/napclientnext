@@ -50,7 +50,7 @@ export async function getServerSideProps(context) {
     year: year,
   });
   return {
-    props: response.data,
+    props: response,
   };
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-//import {connect} from "react-redux";
+import { Doughnut } from "react-chartjs-2";
 import QuestionService from "../../../lib/apiproxy/questionService";
 
 import {
@@ -19,36 +19,24 @@ const Result = (props) => {
   const [chartData, setChartData] = useState([]);
   const [resultText, setResultText] = useState();
  
-  // const options = {
-  //   dataLabels: {
-  //     enabled: true
-  //   },
-  //   labels: ['Correct', 'Incorrect'],
-  //   colors: [
-  //     theme.success,
-  //     theme.danger
-  //   ]
-  // };
-
- // const { userTestId } = match.params;
-    useEffect(() => {
+  useEffect(() => {
       QuestionService.getTestResult(props.testInstanceId).then(res =>{
           const data = res.data.dataPoints;
           setResultText(res.data.resultText);
-          setChartData(data);
+          setChartData({
+            labels:['Right','Wrong'],
+            datasets:[{
+              data: data,
+              backgroundColor: ['#36A2EB', '#FF6384']
+            }]
+          });
       });
-    }, []);
+    }, []); // acts like an initial on load event handler
 
     return (
       <Container fluid>
         <Header>
           <HeaderTitle>Results</HeaderTitle>
-          {/* <Breadcrumb>
-            <BreadcrumbItem>
-              <Link to="/dashboard">Dashboard</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem active>Test Results</BreadcrumbItem>
-          </Breadcrumb> */}
         </Header>
         <Card>
           <CardHeader>
@@ -57,10 +45,10 @@ const Result = (props) => {
           <CardBody>
             <h6>{resultText}</h6>
             <div className="chart chart-xs">
-            {/* <Chart options={options} 
-              series={chartData}
-              type="donut" 
-              height="350" /> */}
+              <Doughnut data={chartData}
+                        height={350}
+                        width={350}
+                        options={{maintainAspectRatio: false}}/>
             </div>
           </CardBody>
         </Card>

@@ -18,7 +18,7 @@ const Answers = React.memo((props) => {
           })
           .join(",");
 
-        // Figure out whether answer contains image/text (Assumption is it can only be of one type)
+        // Figure out whether answer contains image/text (Assumption is, it can only be of one type)
         if (answerIds) {
           if (props.answerContext.answers[0].text !== '' && props.textToSpeechMode) {
             loadAnswerAudio(answerIds);
@@ -142,12 +142,13 @@ const Answers = React.memo((props) => {
       return <>{answersList}</>;
     } else if (props.answerContext.questionType === "text") {
       return (
-        <Input
-          type="text"
-          placeholder="Answer here"
-          onKeyUp={handleInputEntered}
-          defaultValue={props.selectedAnswerText}
-        />
+          <Input
+            key={props.answerContext.id}
+            type="text"
+            placeholder="Answer here"
+            onKeyUp={handleInputEntered}
+            defaultValue={props.selectedAnswerText}
+          />
       );
     }
   } else {
