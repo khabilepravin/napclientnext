@@ -13,7 +13,7 @@ const Intro = () => (
                     Comprehensive NAPLAN-Style* and ICAS-Style tests for primary school students
                   </h1>
                   <p className="lead font-weight-light mb-3 landing-text">
-                                      Hunderds of tests with score tracking and automatic shuffling of questions and answers.
+                                      Hunderds of tests with score tracking. 
                                       Resume where you left of from any device, keeps track of your progress.
                                       </p>
                   
