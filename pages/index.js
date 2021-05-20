@@ -8,7 +8,7 @@ const Landing = (props) => {
   return (
     <LandingLayout user={props.user}>
       <Head>
-        <title>NAPLAN, ICAS and Opportunity Class Style tests for primary level students</title>
+        <title>The ultimate destination to practice NAPLAN, ICAS and OC Style tests</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content="Ultimate destination for students to practice NAPLAN, ICAS and Opportunity Class Style tests" />
       </Head>
