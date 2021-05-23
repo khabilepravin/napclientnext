@@ -24,7 +24,7 @@ const PracticeTest = (props) => {
   return (
     <Layout childPage="true">
       <Head>
-        <title>Practice {testtype} style tests for year {year}</title>
+        <title>Practice {testtype.toUpperCase()} style tests for year {year}</title>
         <meta name="description" content={`Practice ${testtype} for year ${year}`}/>
       </Head>
       <Container fluid>
