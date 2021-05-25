@@ -24,7 +24,7 @@ const Result = (props) => {
           const data = res.data.dataPoints;
           setResultText(res.data.resultText);
           setChartData({
-            labels:['Right','Wrong'],
+            labels:['Correct','Incorrect'],
             datasets:[{
               data: data,
               backgroundColor: ['#36A2EB', '#FF6384']
