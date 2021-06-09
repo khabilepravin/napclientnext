@@ -8,7 +8,7 @@ import 'nprogress/nprogress.css'; //styles of nprogress
 //TODO: Find a permanent solution for TLS verification
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const client = new ApolloClient({
-  uri: process.env.graphApiPath,
+  uri: process.env.NEXT_PUBLIC_GRAPH_API_ENDPOINT,
 });
 
 //Binding events. 
