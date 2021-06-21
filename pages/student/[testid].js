@@ -69,8 +69,10 @@ const ProfileSelection = (props) => {
 
 export async function getServerSideProps(context) {
   const { testid } = context.query;
+  console.log(`Test id is ${testid}`);
   const session = await auth0.getSession(context.req);
   if (session) {
+    console.log(`Session is available`);
     const response = await axiosClient.PostQuery(GET_USERS_BY_PARENT_ID, {
       parentUserId: session.user.userId,
     });
@@ -83,6 +85,7 @@ export async function getServerSideProps(context) {
       },
     };
   } else {
+    console.log(`Session isn't available`);
     // can't create the student profile if not logged in
     context.res.writeHead(307, {
       Location: `/api/login?redirectTo=/student/${testid}`,
