@@ -34,12 +34,12 @@ export default async function callback(req, res) {
             },
           };
         } catch (err) {
-          console.log(err);
+          console.log(`NEXTPK37: ${err}`);
         }
       },
     });
   } catch (error) {
-    console.error(error);
+    console.error(`NEXTPK42: ${error}`);
     res.status(error.status || 400).end(error.message);
   }
 }
