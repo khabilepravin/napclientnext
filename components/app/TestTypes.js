@@ -39,16 +39,16 @@ const TestTypes = (props) => {
           </Col> 
 
          <Col md={6} lg={4}>
-            <Card tag="blockquote" className="border"  onClick={() => router.push("/icas/3")}>
+            <Card tag="blockquote" className="border"  onClick={() => router.push("/oc/4")}>
               <CardBody className="p-4">
                 <div className="d-flex align-items-center mb-3">
                   <div>
                     <FontAwesomeIcon icon={faBookReader} />
                   </div>
                   <div className="pl-3">
-                    <h2 className="mb-1 mt-2">ICAS Year 2</h2>
+                    <h2 className="mb-1 mt-2">OC Year 4</h2>
                     <small className="d-block text-muted h5 font-weight-normal">
-                      ICAS style tests for numeracy and literacy
+                      OC Style tests
                     </small>
                   </div>
                 </div>
