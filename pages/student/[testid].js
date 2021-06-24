@@ -91,7 +91,7 @@ export async function getServerSideProps(context) {
       Location: `/api/login?redirectTo=/student/${testid}`,
     });
     context.res.end();
-    //return { props: {}};
+    return { props: {}};
   }
 }
 
